@@ -1,33 +1,18 @@
 import User from "./cmp/User"
 import Register from "./cmp/Register"
-
-import {
-  createStore,
-} from "redux";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Storage from "./redux/Storage";
 
 import {
   Provider
 } from "react-redux";
-
 const App = ()=>{
-  const reducer = (state={},action)=>{
-    if(action.type === "user"){
-    return {
-      message:"successs"
-    }
-  }else{
-    return {
-      message:"failed"
-    }
-  }
-  }
-  const store = createStore(reducer);
+
   const design = (
     <>
-      <Provider store={store}>
+      <Provider store={Storage}>
         <h1>Redux</h1>
         <User />
-        <Register />
       </Provider>
     </>
   );

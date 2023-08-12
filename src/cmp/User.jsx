@@ -3,16 +3,70 @@ import {
   useSelector
 } from "react-redux";
 
+import {
+  useEffect,
+  useRef
+} from "react";
+
+import {
+  getAllUser,
+  filter
+} from "../redux/action/User.action";
 const User = ()=>{
-  const setAction = useDispatch();
-  const response = useSelector((response)=>response);
+  const selected_option = useRef();
+
+  const dispatch = useDispatch();
+  const response = useSelector(response=>response);
+  useEffect(()=>{
+    dispatch(getAllUser())
+  },[dispatch])
+
+  const Tr = ({item})=>{
+    const trDesign = (
+      <>
+        <tr>
+          <td>{item.id}</td>
+          <td>{item.email}</td>
+          <td>{item.mobile}</td>
+        </tr>
+      </>
+    );
+    return trDesign;
+  }
   const design = (
     <>
-      <h1>User component</h1>
-      <p>{response.message}</p>
-      <button onClick={()=>setAction({
-        type:"user"
-      })}>user btn</button>
+      <div className="container py-5">
+        <div className="row">
+          <div className="col-md-2">
+            <select className="P-2 w-100" ref={selected_option}>
+              <option value="FILTER_BY_EMAIL">filter by email</option>
+              <option value="FILTER_BY_MOBILE">filter by mobile</option>
+            </select>
+          </div>
+          <div className="col-md-10">
+            <input
+              className="p-2 w-100"
+              placeholder="Search"
+              onChange={(e)=>dispatch(filter(selected_option,e))}
+            />
+          </div>
+        </div>
+        <table className="table table-bordered my-4">
+        <thead>
+          <tr>
+            <th width="80">S/No</th>
+            <th>Email</th>
+            <th>Mobile</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            response && response.data.map(item=><Tr key={item.id} item={item} />)
+          }
+        </tbody>
+
+        </table>
+      </div>
     </>
   );
   return design;
