@@ -36,6 +36,11 @@ const User = ()=>{
   const design = (
     <>
       <div className="container py-5">
+      {
+        response && response.error ? <div className="alert alert-danger">
+          <b>{response && response.error.message}</b>
+        </div> : null
+      }
         <div className="row">
           <div className="col-md-2">
             <select className="P-2 w-100" ref={selected_option}>
@@ -51,6 +56,9 @@ const User = ()=>{
             />
           </div>
         </div>
+        {
+          response && response.isLoading ? <i className="fa fa-spinner fa-spin" style={{fontSize:"40px"}}></i> : null
+        }
         <table className="table table-bordered my-4">
         <thead>
           <tr>

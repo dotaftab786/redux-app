@@ -1,15 +1,37 @@
 import {
   GET_ALL_USER,
+  ERROR,
+  LOADING
 } from "../state/User.state";
 
-const getAllUser = ()=>{
-  return (dispatch)=>{
-    setTimeout(()=>{
-      dispatch({
-        type:GET_ALL_USER
-      });
-    },5000)
+import axios from "axios";
 
+let payload = [];
+
+const getAllUser = ()=>{
+  try {
+    return async(dispatch)=>{
+
+      dispatch({
+        type: LOADING
+      });
+      const {data} = await axios({
+        method: "get",
+        url: "http://localhost:3434/dummy"
+      })
+      payload = data;
+      dispatch({
+        type: GET_ALL_USER,
+        payload: data
+      })
+    }
+  } catch (err) {
+    return (dispatch)=>{
+      dispatch({
+        type: ERROR,
+        error: err
+      })
+    }
   }
 
 }
@@ -18,7 +40,8 @@ const filter = (selectTag,event)=>{
     const keyword = event.target.value;
     return {
       type: selectTag.current.value,
-      keyword: keyword
+      keyword: keyword,
+      payload: payload
     }
 }
 

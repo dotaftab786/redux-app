@@ -1,6 +1,7 @@
 import User from "./cmp/User"
 import Register from "./cmp/Register"
 import "bootstrap/dist/css/bootstrap.min.css";
+import "font-awesome/css/font-awesome.min.css";
 import Storage from "./redux/Storage";
 
 import {
