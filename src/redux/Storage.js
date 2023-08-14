@@ -3,18 +3,10 @@ import {
   applyMiddleware
 } from "redux";
 
+import logger from "redux-logger";
+
 import UserReducer from "./reducer/User.reducer";
 
-const report = (Storage)=>(next)=>(action)=>{
-  console.log("First middleware code executed");
-  next(action);
-}
-
-const demo = (Storage)=>(next)=>(action)=>{
-  console.log("Second middleware code executed");
-  next(action)
-}
-
-const Storage = createStore(UserReducer,{},applyMiddleware(report,demo));
+const Storage = createStore(UserReducer,{},applyMiddleware(logger));
 
 export default Storage;
