@@ -3,10 +3,10 @@ import {
   applyMiddleware
 } from "redux";
 
-import logger from "redux-logger";
+import thunk from "redux-thunk";
 
 import UserReducer from "./reducer/User.reducer";
 
-const Storage = createStore(UserReducer,{},applyMiddleware(logger));
+const Storage = createStore(UserReducer,{},applyMiddleware(thunk));
 
 export default Storage;
